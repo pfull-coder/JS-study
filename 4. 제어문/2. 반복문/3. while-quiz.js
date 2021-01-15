@@ -1,11 +1,19 @@
-var begin = +prompt('첫번째 정수를 입력하시오');
-var end = +prompt('두번째 정수를 입력하시오');
+let begin = +prompt("첫번째 정수를 입력하시오.");
+let end = +prompt("두번째 정수를 입력하시오.");
 
-var total = 0;
-var n = begin;
+let total = 0;
 
-while(n <= end) {
-    total += n;
-    n++;
+// const numbers = [begin, end];
+
+if (begin > end) {
+    let temp = begin;  
+    begin = end; 
+    end = temp;
 }
-    alert(`${begin}부터 ${end}까지의 총합은 ${total} 입니다.`);
+
+for (let n = begin; n <= end; n++) {
+    total += n;
+}
+   
+alert(`${begin}부터 ${end}까지의 합은 ${total}입니다.`)
+

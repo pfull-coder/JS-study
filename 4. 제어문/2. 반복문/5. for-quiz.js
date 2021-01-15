@@ -1,23 +1,35 @@
-console.log('==============================================');
+
 // 곱셈 2단
 
-var table = 2;
-console.log('============');
+let table = 2;
+console.log('===========');
 console.log(`구구단 ${table}단`);
-console.log('============');
+console.log('===========');
 
-for(var number = 1; number < 10; number++) {
+for(let number = 1; number < 10; number++) {
     console.log(`${table} × ${number} = ${table * number}`);
 }
 
-console.log('==============================================');
-// 랜덤 구구단
+// random multiplication table
+table = Math.floor(Math.random() * 8) + 2;
 
-var table = Math.floor(Math.random() * 8) + 2;
-console.log('============');
+console.log('===========');
 console.log(`구구단 ${table}단`);
-console.log('============');
+console.log('===========');
 
-for(var number = 1; number < 10; number++) {
+for(number = 1; number < 10; number++) {
     console.log(`${table} × ${number} = ${table * number}`);
+}
+
+
+//multiplication table 반복
+for (let table = 2; table < 10; table++) {
+
+    console.log('============');
+    console.log(`구구단 ${table}단`);
+    console.log('============');
+    
+    for(var number = 1; number < 10; number++) {
+        console.log(`${table} × ${number} = ${table * number}`);
+    }
 }
