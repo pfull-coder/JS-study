@@ -11,14 +11,9 @@
 (10, 4)
 */
 
-
-for(var x = 1; x < 11; x++) {
-    for(var y = 1; y < 11; y++) {
-        if (4*x + 5*y === 60) {    
-            console.log(`(${x}, ${y})`);
-        }
+for(let x = 1; x < 11; x++) {
+    for(let y = 1; y < 11; y++) {
+        if (4*x + 5*y === 60)
+        console.log(`방정식의 해는 \n ${(x, y)}입니다.`);
     }
 }
-        
-        
-        
