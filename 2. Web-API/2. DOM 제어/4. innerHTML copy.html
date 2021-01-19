@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        span {
+            color: red;
+        }
+
+    </style>
+</head>
+<body>
+    <ul id="fruits">
+        <li id="apple">Apple</li>
+    </ul>
+
+    <div id="greeting">Hello <span>World!</span></div>
+    
+    <script>
+       console.log(greeting.textContent);
+       console.log(greeting.innerHTML);
+
+       greeting.innerHTML = '<span>안녕</span>하세요!!';
+       
+       // 성능상의 문제가 있기 때문에 이런 방법으로 Node를 제어하지는 마세요!
+
+       // Node 추가.
+       fruits.innerHTML += '<li class = "banana">Banana</li>';
+       
+       // Node 교체.
+       fruits.innerHTML = '<li class = "grape">Grape</li>';
+
+       // Node 삭제.
+       fruits.innerHTML = '';
+
+       </script>
+
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <ul id="fruits">
+        <li class = "apple">Apple</li>
+        <li class = "banana">Banana</li>
+        <li class = "grape">Grape</li>
+
+        <table id="board">
+            <tr>
+                <td>A</td>
+                <td>B</td>
+            </tr>
+            <tr>
+                <td>C</td>
+                <td>D</td>
+            </tr>
+        </table>
+ 
+    <script>
+        const $banana = document.querySelector('.banana');
+
+        // 부모 Node 탐색.
+        const parent = $banana.parentNode; //parentElement를 사용해도 됨.
+        console.log(parent);
+
+        const ancient = $banana.parentElement.parentElement;
+        console.log(ancient);
+
+        // 다음 형제 Node 탐색.
+        const $next = $banana.nextElementSibling;
+        console.log($next);
+        
+        // 이전 형제 Node 탐색.
+        const $prev = $banana.previousElementSibling;
+        console.log($prev);
+        
+        const $prev2 = $next.previousElementSibling;
+        console.log($prev2);
+        console.log($prev2 === $banana);
+
+        // Table 요소 Node 취득.
+        const $board = document.getElementById('board');
+        // Table 요소 자식으로는 자동으로 tbody가 삽입된다.
+        const $children = $board.childeren;
+        console.log($children);
+    </script>
+</body>
+</html>
