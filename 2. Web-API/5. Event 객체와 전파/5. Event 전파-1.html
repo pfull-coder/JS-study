@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        #fruits {
+            padding: 50px;
+            border: 2px solid red;
+        }
+
+        #fruits>li {
+            background: yellow;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <ul id="fruits">
+        <li id="apple">Apple</li>
+        <li id="banana">Banana</li>
+        <li id="grape">Grape</li>
+    </ul>
+
+    <script>
+        /*
+        bubbling: 어떤 특정 요소에 이벤트가 발생하면 그 요소에서 이벤트가 일어남.
+                  자동으로 부모에 걸린 이벤트가 작동. (최상단 조상 요소 이벤트까지 반복)
+        capturing: 어떤 요소에서 이벤트가 발생하면 bubbling과 반대로 아래로 내려옴.
+                   실제로는 잘 발생하지 않음. addEventListener에 3번째 값으로 true를 전달하면 capturing을 일으킴.
+        */
+       
+        const $fruits = document.getElementById('fruits');
+
+        $fruits.addEventListener('click', function (e) {
+            console.log('ul 태그에서 이벤트가 발생함!');
+            /*
+            console.log('이벤트 실제 발생 타겟: ', e.target);
+            console.log('이벤트 핸들러가 붙은 타겟: ', e.currentTarget);
+            */
+           console.log('이벤트 전파 단계: ', e.eventPhase);
+        }, true);
+
+        const $apple = $fruits.firstElementChild;
+        $apple.addEventListener('click', function (e) {
+            console.log('Apple에서 이벤트가 발생함!');
+            // console.log('이벤트 실제 발생 타겟: ', e.target);
+            // console.log('이벤트 핸들러가 붙은 타겟: ', e.currentTarget);
+            // console.log('이벤트 전파 단계: ', e.eventPhase);
+            
+            // 이벤트 전파를 막음
+            // e.stopPropagation();
+        })
+
+
+    </script>
+</body>
+
+</html>
