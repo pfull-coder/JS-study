@@ -1,0 +1,34 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "json-server",
+      "author": "typicode"
+    },
+    {
+      "title": "수정된 제목",
+      "id": 2,
+      "author": "둘리"
+    },
+    {
+      "id": 3,
+      "title": "야옹이",
+      "author": "나비"
+    },
+    {
+      "id": "4",
+      "title": "야야야",
+      "author": "수정자"
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}

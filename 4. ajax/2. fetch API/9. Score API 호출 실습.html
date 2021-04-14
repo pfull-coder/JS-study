@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        label {
+            display: block;
+        }
+
+        .input {
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="input">
+        <label># 이름: <input type="text" name="name"></label>
+        <label># 국어: <input type="text" name="kor"></label>
+        <label># 영어: <input type="text" name="math"></label>
+        <label># 수학: <input type="text" name="eng"></label>
+    </div>
+
+    <button id="get">목록 조회</button>
+    <button id="post">등록</button>
+
+    <hr>
+
+    <ul class="content"></ul>
+
+    <script>
+        function clearResultDOM() {
+            const $content = document.querySelector(".content");
+            for (let $li of [...$content.children]) {
+                $content.removeChild($li);
+            }
+        }
+
+        function makeResultDOM(scoreList) {
+            const $content = document.querySelector(".content");
+            const $fragment = document.createDocumentFragment();
+
+            for (let score of scoreList) {
+                const {
+                    stuNum,
+                    name,
+                    kor,
+                    math,
+                    eng,
+                    total,
+                    average
+                } = score;
+                const $li = document.createElement('li');
+
+                //li태그에 data- 속성을 부여
+                $li.dataset.stuNum = stuNum;
+
+                $li.textContent =
+                    `학번: ${stuNum}, 이름: ${name}, 국어: ${kor}, 영어: ${eng}, 수학: ${math}, 총점: ${total}, 평균: ${average}`;
+
+                $li.innerHTML += '&nbsp;<button class="remove">삭제</button>';
+
+                $fragment.appendChild($li);
+            }
+            $content.appendChild($fragment);
+        }
+
+        //get버튼 이벤트
+        document.getElementById('get').addEventListener('click', e => {
+            clearResultDOM();
+            fetch('http://localhost/api/score/')
+                .then(res => res.json())
+                .then(scores => {
+                    makeResultDOM(scores);
+                });
+        });
+        //post버튼 이벤트
+        document.getElementById('post').addEventListener('click', e => {
+
+            const $name = document.querySelector('input[name=name]');
+            const $kor = document.querySelector('input[name=kor]');
+            const $eng = document.querySelector('input[name=eng]');
+            const $math = document.querySelector('input[name=math]');
+
+            const reqInfo = {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify({
+                    name: $name.value,
+                    kor: +$kor.value,
+                    eng: +$eng.value,
+                    math: +$math.value
+                })
+            };
+            fetch('http://localhost/api/score/', reqInfo)
+                .then(res => res.text())
+                .then(result => {
+                    if (result === 'regSuccess') {
+                        alert('등록 성공!');
+                        $name.value = '';
+                        $kor.value = '';
+                        $eng.value = '';
+                        $math.value = '';
+                    } else {
+                        alert('등록 실패!');
+                    }
+                });
+        });
+        //삭제버튼 이벤트
+        document.querySelector('.content').addEventListener('click', e => {
+            if (!e.target.matches('.content > li > .remove')) {
+                return;
+            }
+
+            //console.log('삭제 버튼 클릭됨!');
+            //console.log(e.target.parentElement);
+
+            const $li = e.target.parentElement;
+            const stuNum = $li.dataset.stuNum;
+
+            console.log(stuNum);
+
+            //서버에 삭제 요청
+            fetch('http://localhost/api/score/' + stuNum, {method:'DELETE'})
+                .then(res => res.text())
+                .then(msg => {
+                    if (msg === 'delSuccess') {
+                        document.querySelector('.content').removeChild($li);
+                    } else {
+                        alert('삭제 실패!');
+                    }
+                });
+
+        });
+
+    </script>
+
+</body>
+
+</html>

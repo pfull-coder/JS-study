@@ -11,7 +11,7 @@
 <script>
 
         //GET요청을 처리하는 함수
-        function get(url) {
+        function get(url, callback) {
             const xhr = new XMLHttpRequest();
             xhr.open('GET', url);
             xhr.send();
@@ -20,11 +20,13 @@
                 # 우리는 get함수 바깥쪽으로 응답데이터를 반환하고 싶다.
                 - 하지만 응답결과 처리가 onload에 이벤트핸들러 함수이므로
                   get의 리턴으로 처리하지 못한다.
+                # 해결책: 응답데이터를 다른 함수의 매개값으로 넘겨서
+                 콜백으로 처리한다.
             */
             xhr.onload = () => {
                 if (xhr.status === 200) {
-                    console.log(JSON.parse(xhr.response));
-                    //return JSON.parse(xhr.response);
+                    //console.log(JSON.parse(xhr.response));
+                    callback(JSON.parse(xhr.response));
                 } else {
                     console.error(`${xhr.status}: ${xhr.statusText}`);
                 }
@@ -32,9 +34,10 @@
 
         }//end function
 
-        //posts에서 id가 1인 데이터를 획득
-        const postData = get('http://localhost:5000/posts/2');
-        console.log(`postData: ${postData}`);
+        //posts에서 id가 2인 데이터를 획득
+        get('http://localhost:5000/posts/2', result => {
+            console.log('result:', result);
+        });
     </script>
 
 </body>
